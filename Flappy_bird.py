@@ -1,4 +1,4 @@
-import pygame,sys,random
+import pygame,sys,random,json
 
 
 def draw_floor():
@@ -96,6 +96,9 @@ gravity = 0.25
 game_active = True
 score = 0
 high_score = 0
+
+with open('score_file.txt') as score_file:
+    high_score = json.load(score_file)
 ### a variable which conrol bird movement
 bird_movement = 0
 
@@ -128,6 +131,8 @@ score_sound_countdown = 100
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            with open('score_file.txt','w') as score_file:
+               json.dump(high_score,score_file) 
             pygame.quit()
             sys.exit()
         if event.type == pygame.KEYDOWN:
